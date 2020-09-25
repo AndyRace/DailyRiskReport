@@ -1,0 +1,47 @@
+﻿@using RestSharp
+@model IRestResponse<LatestReport>
+@{
+    ViewData["Title"] = "Test Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Test</h1>
+</div>
+<div>
+    <table class="table table-responsive table-hover">
+        <tr><td><label asp-for="ResponseUri"></label></td><td>@Model.ResponseUri</td></tr>
+        <tr><td><label asp-for="ResponseStatus"></label></td><td>@Model.ResponseStatus</td></tr>
+        <tr><td><label asp-for="StatusCode"></label></td><td>@Model.StatusCode</td></tr>
+        <tr><td><label asp-for="StatusDescription"></label></td><td>@Model.StatusDescription</td></tr>
+        <tr><td><label asp-for="Data"></label></td><td>@Model.Data</td></tr>
+        @if (Model.Data != null)
+        {
+            var data = (LatestReport)Model.Data;
+
+            <tr><td><label asp-for="Data.latest_update"></label></td><td>@data.latest_update</td></tr>
+            <tr><td><label asp-for="Data.cachetype"></label></td><td>@data.cachetype</td></tr>
+
+            var i = 1;
+            foreach (var detail in data.details)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>
+                        <table class="table table-responsive table-hover">
+                            <tr><td><label asp-for="@detail.title"></label></td><td>@detail.title</td></tr>
+                            <tr><td><label asp-for="@detail.date"></label></td><td>@detail.date</td></tr>
+                            <tr><td><label asp-for="@detail.updated"></label></td><td>@detail.updated</td></tr>
+                            <tr><td><label asp-for="@detail.country_id"></label></td><td>@detail.country_id</td></tr>
+                            <tr><td><label asp-for="@detail.sectionid"></label></td><td>@detail.sectionid</td></tr>
+                            <tr><td><label asp-for="@detail.sectiontypeid"></label></td><td>@detail.sectiontypeid</td></tr>
+                            <tr><td><label asp-for="@detail.type"></label></td><td>@detail.type</td></tr>
+                        </table>
+                    </td>
+                </tr>
+
+                i++;
+            }
+        }
+    </table>
+</div>
+
